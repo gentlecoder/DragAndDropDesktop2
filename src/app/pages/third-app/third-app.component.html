@@ -1,0 +1,111 @@
+<div class="bg">
+  <img src="{{bgUrl}}" alt="" class="bg-img">
+</div>
+<div class="nav-panel-content">
+  <div class="nav-panel">
+    <div class="banner">
+      <ul>
+        <li *ngFor="let widgets of widgetsArray;let index1 = index">
+          <div class="card-container">
+            <gridster [options]="gridsterOptions" [draggableOptions]="gridsterDraggableOptions"
+                      (reflow)="onReflow($event)" (optionsChange)="optionsChange($event)" #gridster1 class="card-panel">
+              <gridster-item *ngFor="let widget of widgets; let index2 = index" #itemComp
+                             [class.gridster-item-pointer]="!cardDragAndDrop" [options]="itemOptions"
+                             [dragAndDrop]="cardDragAndDrop" [resizable]="cardResizable"
+                             [(x)]="widget.x" [(y)]="widget.y"
+                             [(xSm)]="widget.xSm" [(ySm)]="widget.ySm"
+                             [(xMd)]="widget.xMd" [(yMd)]="widget.yMd"
+                             [(xLg)]="widget.xLg" [(yLg)]="widget.yLg"
+                             [(xXl)]="widget.xXl" [(yXl)]="widget.yXl"
+                             [(w)]="cardWidth" [(h)]="cardHeight"
+                             (change)="itemChange($event, gridster1)"
+                             (click)="gotoThirdApp(widget)">
+                <div *ngIf="!widget.addApp">
+                  <div class="panel-body">
+                    <img
+                      src="{{widget.imgUrl?widget.imgUrl.indexOf('./')!=0?devUrl+'systemapp/logo/'+widget.id:widget.imgUrl:'./assets/images/dashboard/card-icon/third.png'}}"
+                      alt="">
+                  </div>
+                  <div class="panel-heading" [class.panel-heading-draggable]="cardDragAndDrop">{{widget.title}}</div>
+                  <div class="panel-heading-delete" *ngIf="cardDragAndDrop"
+                       (click)="deleteCard($event,index1,index2,gridster1)"></div>
+                </div>
+                <div *ngIf="widget.addApp" class="app-add" (click)="showAddAppModal()">
+                  <img src="./assets/images/dashboard/addApp.png" alt="">
+                </div>
+
+              </gridster-item>
+            </gridster>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="control-panel" *ngIf="!cardDragAndDrop">
+    <nz-popover [nzTitle]="'选择主题'" [nzTrigger]="'click'">
+      <!--<button nz-button nz-popover>点击</button>-->
+      <div class="theme-button" nz-button nz-popover></div>
+      <ng-template #nzTemplate>
+        <div style="overflow: hidden">
+          <div *ngFor="let bg of bgImgs; let i = index" class="theme-img-panel" (click)="themeSelect(bg,i)">
+            <img src="{{bg.bgUrl}}" alt="" class="theme-img">
+            <img *ngIf="bg.selected" src="./assets/images/third-app/bg-selected.png" alt="" class="theme-img-selected">
+          </div>
+        </div>
+      </ng-template>
+    </nz-popover>
+    <div class="edit-button" (click)="enableCardDragAndDrop()"></div>
+  </div>
+
+  <nz-modal [nzVisible]="addAppVisible" [nzTitle]="'添加应用'" [nzContent]="modalContent" [nzFooter]="modalFooter"
+            (nzOnCancel)="closeAddAppModal($event)" [nzWidth]="980">
+    <ng-template #modalContent>
+      <nz-table #nzTable [nzDataSource]="thirdAppData" [nzPageSize]="8" [nzBordered]="false">
+        <thead nz-thead>
+        <tr>
+          <th nz-th><span>名称</span></th>
+          <th nz-th><span>操作</span></th>
+          <th nz-th><span>英文名称</span></th>
+          <th nz-th><span>URL</span></th>
+          <th nz-th><span>说明</span></th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+          <td nz-td>{{data.appName}}</td>
+          <td nz-td>
+            <span *ngIf="data.added">
+              已添加<a href="javascript:void(0)" class="cancel-add-thirdapp" (click)="cancelAddThirdApp(data)">取消</a>
+            </span>
+            <span *ngIf="!data.added">
+              <a href="javascript:void(0)" class="add-thirdapp" (click)="addThirdApp(data)">添加</a>
+            </span>
+          </td>
+          <td nz-td>{{data.appEnName}}</td>
+          <td nz-td>{{data.appUrl}}</td>
+          <td nz-td>{{data.appDesc}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </ng-template>
+    <ng-template #modalFooter>
+    </ng-template>
+  </nz-modal>
+
+  <div class="metro-bottom-container" *ngIf="cardDragAndDrop">
+    <div class="metro-bottom-buttons">
+      <!--<button nz-button [nzType]="'primary'" class="mr-20 resetButton" (click)="resetCardEdit()">-->
+      <!--<span>重置</span>-->
+      <!--</button>-->
+      <button nz-button [nzType]="'primary'" class="mr-20" (click)="saveCardEdit(true)">
+        <span>确定</span>
+      </button>
+      <!--todo 保存修改之前的状态 or 不向后台保存数据-->
+      <button nz-button [nzType]="'default'" (click)="saveCardEdit(false)">
+        <span>取消</span>
+      </button>
+    </div>
+    <!--<div class="metro-bottom-company">中兴通讯科技股份有限责任公司<br>Copyright©2017</div>-->
+  </div>
+
+</div>

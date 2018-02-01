@@ -1,0 +1,258 @@
+/*
+  通用样式
+ */
+.mr-20 {
+  margin-right: 20px;
+}
+
+/*
+  面板样式
+ */
+.bg {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  z-index: -1;
+  .bg-img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.nav-panel-content {
+  position: absolute;
+  //top: 0;
+  //left: 80px;
+  //width: calc(~"100% - 80px");
+  width: 100%;
+  height: 100%;
+  //right: 0;
+  //bottom: 0;
+  overflow: auto;
+  z-index: 1;
+}
+
+.nav-panel {
+  width: 100%;
+  padding: 100px 10% 5% 10%;
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 150px;
+}
+
+.edit-button {
+  float: right;
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+  cursor: pointer;
+  background: url("../../../assets/images/third-app/edit.png") no-repeat;
+}
+
+.edit-button:hover {
+  background: url("../../../assets/images/third-app/edit.png") no-repeat 0 -100px;
+}
+
+.theme-button {
+  width: 50px;
+  height: 50px;
+  border: 0;
+  transition: none;
+  background: url("../../../assets/images/third-app/theme.png") no-repeat;
+}
+
+.theme-button:hover {
+  background: url("../../../assets/images/third-app/theme.png") no-repeat 0 -100px;
+}
+
+.theme-img-panel {
+  position: relative;
+  float: left;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.theme-img {
+  width: 112px;
+}
+
+.theme-img-selected {
+  position: absolute;
+  top: 0;
+  width: 112px;
+  height: 75px;
+}
+
+.panel-heading {
+  position: absolute;
+  bottom: 0;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.panel-heading-draggable {
+  cursor: move;
+}
+
+.panel-heading-delete {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../assets/images/dashboard/dashboard-icon/delete.png);
+  background-size: 100%;
+  top: -9px;
+  right: -8px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.panel-body {
+  height: 100%;
+  margin-top: 18%;
+  text-align: center;
+  img {
+    width: 50%;
+  }
+}
+
+.card-container {
+  display: flex;
+  flex: 1 0;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 3px;
+}
+
+.card-panel {
+  flex: 1;
+}
+
+.gridster-item-pointer {
+  cursor: pointer;
+}
+
+.app-add img {
+  width: 100%;
+}
+
+.add-thirdapp {
+  color: #33b383;
+}
+
+.cancel-add-thirdapp {
+  color: #e9665c;
+  margin-left: 10px;
+}
+
+/*
+  底部菜单工具条
+ */
+.metro-bottom-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  //background: url(../../../assets/images/dashboard/dashboard-icon/bg-bottom-bar.png) repeat;
+  background-color: rgba(55, 55, 55, 0.6);
+  z-index: 1;
+}
+
+.metro-bottom-buttons {
+  text-align: center;
+  margin-top: 12px;
+  margin-left: 80px;
+}
+
+.resetButton {
+  background-color: #2ab07d;
+  border-color: #2ab07d;
+}
+
+.resetButton:hover {
+  background-color: #32cc92;
+  border-color: #32cc92;
+}
+
+.metro-bottom-company {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  height: 100%;
+  font-size: 12px;
+  text-align: center;
+  color: #FFFFF1;
+  z-index: -1;
+}
+
+/*
+  覆盖原生样式
+ */
+:host ::ng-deep .unslider-nav {
+  //position: fixed;
+  //top: 80%;
+  //left: 48%;
+  margin-top: 40px;
+  ol {
+    li {
+      width: 12px;
+      height: 12px;
+    }
+    li.unslider-active {
+      background: #DC8000;
+    }
+  }
+}
+
+:host ::ng-deep .unslider-arrow {
+  position: fixed;
+  top: 50%;
+}
+
+:host ::ng-deep .unslider-arrow.prev {
+  //left: 100px;
+}
+
+:host ::ng-deep .gridster-item-inner {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  -webkit-transition: background 3s;
+  transition: background 3s;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+:host ::ng-deep .is-dragging .gridster-item-inner {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24), 0 2px 4px rgba(0, 0, 0, 0.48);
+  top: -3px;
+  bottom: 13px;
+}
+
+:host ::ng-deep .ant-modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #395068;
+}
+
+:host ::ng-deep .ant-table-thead > tr > th {
+  font-size: 14px;
+  font-weight: bold;
+  color: #395068;
+}
+
+:host ::ng-deep .ant-modal-footer {
+  border-top: 0;
+  padding: 0;
+}
